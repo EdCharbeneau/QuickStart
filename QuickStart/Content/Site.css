@@ -1,24 +1,55 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿#main-section-header h1 {
+    font-size: 22px;
+    text-transform: uppercase;
+    padding-left: 1.667em;
+    white-space: nowrap;
+    padding: 0;
+    margin:0;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+#employee-list > h3 {
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+#main-section-header h1, #dateFilter {
+    padding: 30px;
+    text-align: center;
+    display: block;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 768px) {
+    #main-section-header h1
+    {
+        text-align:left;
+    }
+    #dateFilter {
+        text-align: right;
+    }
+
+    .period-wrapper {
+        display: inline-block;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
 }
