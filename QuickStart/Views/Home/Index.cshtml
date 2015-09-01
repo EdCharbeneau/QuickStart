@@ -2,6 +2,8 @@
 @using Prototyping.Placeholdit;
 @{
     ViewBag.Title = "Team Efficiency";
+    var placeholder = QuickStart.Models.PlaceholderModel.GetPlaceholderData();
+    var names = QuickStart.Models.Name.GetListView();
 }
 
 <section id="main-section-header" class="row">
@@ -11,25 +13,35 @@
     <div id="dateFilter" class="col-sm-9">
         <div class="period-wrapper">
             @Html.Label("Stats from")
-            @Html.TextBox("StatsFrom")
+            @Html.Kendo().DatePicker().Name("StatsFrom")
         </div>
         <div class="period-wrapper">
             @Html.Label("Stats to")
-            @Html.TextBox("StatsTo")
+            @Html.Kendo().DatePicker().Name("StatsTo")
         </div>
+
     </div>
 </section>
 
 <section id="main-section-content" class="row">
+
     <nav id="employee-list" class="col-sm-2 hidden-xs">
         <h3>Team members</h3>
-        @Html.Ipsum().ul()
+        @(Html.Kendo().ListView(names)
+            .Name("listview")
+            .ClientTemplateId("template")
+            .TagName("ul")
+        )
     </nav>
-    <article class="col-xs-10">
-        <div class="row">
+    <article class="col-xs-12 col-sm-10">
+        <section id="employee-details" class="row">
+            <div class="dash-head">
+                <!-- toggle button for responsive panel, hidden on large screens -->
+                <button class="k-rpanel-toggle"><span class="k-icon k-i-hbars"></span></button>
+            </div>
             <div id="employee-about" class="col-xs-12 col-sm-4">
-                @Html.Placehold(60, 60)
-                <p>First Name, Last Name</p>
+                @Html.Placehold(90, 90)
+                <span>First Name, Last Name</span>
             </div>
             <div class="col-xs-12 col-sm-4">
                 @Html.Placehold(430, 120, "Chart", null, null, new { @class = "image-responsive" })
@@ -37,12 +49,22 @@
             <div class="col-xs-12 col-sm-4">
                 @Html.Placehold(430, 120, "Chart", null, null, new { @class = "image-responsive" })
             </div>
-        </div>
+        </section>
         <div class="row">
             <div class="col-xs-12">
-                <h3>Representative orders - schedule</h3>
-                @Html.Ipsum().table(5, 3, "d,t,n", new { @class = "table table-striped table-bordered" })
+                <h3>Representative orders</h3>
+                @(Html.Kendo().Grid(placeholder).Name("myTable"))
             </div>
         </div>
     </article>
 </section>
+
+
+<script type="text/x-kendo-tmpl" id="template">
+    <li>
+        <a href="##">
+            @Html.Placehold(30, 30)
+            <span> #= FullName #</span>
+        </a>
+    </li>
+</script>
