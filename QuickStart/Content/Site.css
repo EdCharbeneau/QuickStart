@@ -1,6 +1,7 @@
-﻿.dash-head {
-    float: left;
-    margin-top: 14px;
+﻿/* Global */
+img {
+    height: auto;
+    max-width: 100%;
 }
 
 article {
@@ -8,33 +9,36 @@ article {
     height: 100vh;
 }
 
-#main-section-header {
-    background-color: #000;
-    color: white;
+/* Top Bar */
+
+.hamburger {
+    float: left;
 }
 
-    #main-section-header h1 {
+#app-title-bar {
+    text-align: center;
+    background-color: #000;
+    color: #eaeaea;
+}
+
+    #app-title-bar .title {
         font-size: 22px;
         text-transform: uppercase;
-        padding-left: 1.667em;
-        white-space: nowrap;
-        padding: 0;
-        margin: 0;
     }
 
-#employeeList {
+/* Side Panel */
+
+#menuPanel {
     background-color: #fff;
     padding: 10px;
     z-index: 3;
 }
 
-#employee-details {
-    padding-top: 20px;
+#menuPanel .k-widget.k-datepicker.k-header {
+    width: 100%;
 }
 
-#employee-about img {
-    vertical-align: bottom;
-}
+/* Side Panel - Employee List */
 
 #employee-list > h3 {
     color: #0072c6;
@@ -69,53 +73,29 @@ article {
         text-decoration: none;
     }
 
-#main-section-header h1, #dateFilter {
-    padding: 15px;
-    text-align: center;
-    display: block;
+/* App */
+#employee-details {
+    padding-top: 20px;
 }
 
-img {
-    height: auto;
-    max-width: 100%;
-}
-
-.k-widget.k-datepicker.k-header {
-    Width:100%;
+#employee-about img {
+    vertical-align: bottom;
 }
 
 
-/* Custom, iPhone Retina */
+
+/* Small Devices, Tablets, and Up */
 @media only screen and (min-width : 768px) {
-    #main-section-header h1 {
+    #app-title-bar .title {
         text-align: left;
     }
 
-    #dateFilter {
-        text-align: right;
+    #main-section-content {
+        margin-left: 320px;
     }
 
     .app-wraper {
         position: relative;
         margin-left: -15px;
     }
-}
-
-/* Extra Small Devices, Phones */
-@media only screen and (min-width : 480px) {
-}
-
-/* Small Devices, Tablets */
-@media only screen and (min-width : 768px) {
-    #main-section-content {
-        margin-left: 320px;
-    }
-}
-
-/* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
-}
-
-/* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
 }

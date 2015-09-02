@@ -1,29 +1,26 @@
-﻿@using Prototyping.Ipsum;
-@using Prototyping.Placeholdit;
+﻿@using Prototyping.Placeholdit;
 @{
     ViewBag.Title = "Team Efficiency";
     var placeholder = QuickStart.Models.PlaceholderModel.GetPlaceholderData();
     var names = QuickStart.Models.Name.GetListView();
 }
 
-<section id="main-section-header" class="row">
+<section id="app-title-bar" class="row">
     <div class="col-sm-3">
-        <div class="dash-head">
+        <div class="hamburger">
             <!-- toggle button for responsive panel, hidden on large screens -->
             <button class="k-rpanel-toggle"><span class="k-icon k-i-hbars"></span></button>
         </div>
-        <h1>@ViewBag.Title</h1>
+        <h1 class="title">@ViewBag.Title</h1>
     </div>
 </section>
-<section class="app-wraper">
-    @(Html.Kendo().ResponsivePanel().Name("employeeList").Breakpoint(768).Content(
+<div class="app-wraper">
+    @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
     @<div>
-        <div>
-            <p>@Html.Label("Stats from")</p>
-            <p>@Html.Kendo().DatePicker().Name("StatsFrom")</p>
-            <p>@Html.Label("Stats to")</p>
-            <p>@Html.Kendo().DatePicker().Name("StatsTo")</p>
-        </div>
+        <p>@Html.Label("Stats from")</p>
+        <p>@Html.Kendo().DatePicker().Name("StatsFrom")</p>
+        <p>@Html.Label("Stats to")</p>
+        <p>@Html.Kendo().DatePicker().Name("StatsTo")</p>
         <nav id="employee-list">
             <h3>Team members</h3>
             @(Html.Kendo().ListView(names)
@@ -36,8 +33,7 @@
 ))
     <section id="main-section-content" class="row">
         <article class="col-xs-12">
-            <section id="employee-details" class="row">
-                
+            <div id="employee-details" class="row">
                 <div id="employee-about" class="col-xs-12 col-sm-4">
                     @Html.Placehold(90, 90, "Face", "efefef", "fff")
                     <span>First Name, Last Name</span>
@@ -48,7 +44,7 @@
                 <div class="col-xs-12 col-sm-4">
                     @Html.Placehold(430, 120, "Chart", "9b59b6", "fff")
                 </div>
-            </section>
+            </div>
             <div class="row">
                 <div class="col-xs-12">
                     <h3>Representative orders</h3>
@@ -57,7 +53,7 @@
             </div>
         </article>
     </section>
-</section>
+</div>
 
 <script type="text/x-kendo-tmpl" id="template">
     <li>
