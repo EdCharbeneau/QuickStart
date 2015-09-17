@@ -6,13 +6,18 @@
 
 <section id="app-title-bar" class="row">
     <div class="col-sm-3">
-        <div class="hamburger">
-            <!-- toggle button for responsive panel, hidden on large screens -->
-            <button class="k-rpanel-toggle"><span class="k-icon k-i-hbars"></span></button>
-        </div>
         <h1 class="title">@ViewBag.Title</h1>
     </div>
 </section>
+<div class="hamburger">
+    <!-- toggle button for responsive panel, hidden on large screens -->
+    @(Html.Kendo().Button()
+                .Name("menuPanelOpen")
+                .Content("menu")
+                .Icon("hbars")
+                .HtmlAttributes(new { @class = "k-rpanel-toggle" })
+    )
+</div>
 <div class="app-wraper">
 
     @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
@@ -22,7 +27,7 @@
                 .Name("menuPanelClose")
                 .Content("Close")
                 .Icon("close")
-                .HtmlAttributes(new { @class = "k-rpanel-toggle hidden-lg" })
+                .HtmlAttributes(new { @class = "k-rpanel-toggle" })
              )
          </div>
         <h3>Report Range</h3>

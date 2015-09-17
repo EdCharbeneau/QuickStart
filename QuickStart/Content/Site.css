@@ -12,7 +12,9 @@ article {
 /* Top Bar */
 
 .hamburger {
-    float: left;
+    position:absolute;
+    top:5px;
+    left:5px;
 }
 
 #app-title-bar {
