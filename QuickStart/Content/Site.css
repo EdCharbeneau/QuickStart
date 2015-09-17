@@ -5,7 +5,7 @@ img {
 }
 
 article {
-    background-color: #eaeaea;
+    background-color: #F5F6F6;
     height: 100vh;
 }
 
@@ -17,8 +17,8 @@ article {
 
 #app-title-bar {
     text-align: center;
-    background-color: #000;
-    color: #eaeaea;
+    background-color: #00ACC1;
+    color: #fff;
 }
 
     #app-title-bar .title {
@@ -40,12 +40,14 @@ article {
 
 /* Side Panel - Employee List */
 
-#employee-list > h3 {
-    color: #0072c6;
+#menuPanel h3 {
+    color: #ff4350;
     font-weight: bold;
     font-size: 14px;
     text-transform: uppercase;
-    margin-top: 30px;
+    margin: 30px 0 10px -10px;
+    padding: 10px;
+    border-left: 5px solid;
 }
 
 #employee-list > ul {
@@ -56,20 +58,29 @@ article {
     list-style: none;
 }
 
+#employee-list img, #employee-about img {
+    border: 3px solid #00acc1;
+    border-radius: 50%;
+    margin-right:5px;
+}
+
 #employee-list img {
-    border: 1px solid #333;
+    border-width: 1px;
     max-width: 30px;
 }
+
 
 #employee-list a {
     padding: 5px 15px;
     padding-top: 5px;
     padding-bottom: 5px;
     display: block;
+    color:#00acc1;
+
 }
 
     #employee-list a:hover {
-        background-color: #dfedfa;
+        background-color: #F5F6F6;
         text-decoration: none;
     }
 
@@ -78,14 +89,40 @@ article {
     padding-top: 20px;
 }
 
-#employee-about img {
-    vertical-align: bottom;
+#employee-about {
+    font-size: 18px;
+    text-align: center;
 }
 
+#main-section-content > article {
+    padding-top:20px;
+}
 
+.chart-wrap {
+    text-align: right;
+    background-color:#fff;
+    padding: 10px 10px;
+    border: 1px solid #E0E0E0;
+    margin-top:10px;
+}
+
+.chart-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: right;
+    color: #9DA2A4;
+}
+
+.sales-report-value {
+    text-transform: uppercase;
+    font-size: 28px;
+}
 
 /* Small Devices, Tablets, and Up */
 @media only screen and (min-width : 768px) {
+    #employee-about {
+        text-align: left;
+    }
     #app-title-bar .title {
         text-align: left;
     }
