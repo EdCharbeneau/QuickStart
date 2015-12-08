@@ -69,8 +69,6 @@
         <article class="col-xs-12">
             <div id="employee-details" class="row">
                 <div id="employee-about" class="col-xs-12 col-lg-4">
-                    <img src="/Content/Employees/1.png" />
-                    <span>Full Name</span>
                 </div>
                 <div class="col-xs-12 col-lg-4">
                     <div class="chart-wrap">
@@ -97,11 +95,16 @@
     </section>
 </div>
 
+<script type="text/x-kendo-tmpl" id="employeeAvatarTemplate">
+    <img src="@(Url.Content("~/content/employees/"))#:EmployeeId#.png" />
+    <span>#:FullName#</span>
+</script>
+
 <script type="text/x-kendo-tmpl" id="EmployeeItemTemplate">
     <li class="employee">
         <div>
             <img src="@(Url.Content("~/content/employees/"))#:EmployeeId#-t.png" />
-            <span> #= FullName #</span>
+            <span> #: FullName #</span>
         </div>
     </li>
 </script>
@@ -110,25 +113,45 @@
     function onListDataBound(e) {
         this.select($(".employee:first"));
     }
-    function onCriteriaChange(e) {
-        var employeeList = $("#EmployeesList").data("kendoListView"),
-        employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid"));
-        //    employeeQuarterSales = $("#EmployeeQuarterSales").data("kendoChart"),
-        //    employeeAverageSales = $("#EmployeeAverageSales").data("kendoChart"),
-        //    teamSales = $("#TeamSales").data("kendoChart"),
-        employeeSales = $("#EmployeeSales").data("kendoGrid"),
-        statsFrom = $("#StatsFrom").data("kendoDatePicker"),
-        statsTo = $("#StatsTo").data("kendoDatePicker"),
-        filter = {
+
+    function getSelectedEmployee() {
+        var employeeList = $("#EmployeesList").data("kendoListView");
+        var employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid"));
+        return employee;
+    }
+
+    function updateEmployeeAvatar(employee) {
+        var template = kendo.template($("#employeeAvatarTemplate").html());
+        //apply template
+        $("#employee-about").html(template(employee));
+    }
+
+    function createEmployeeFilter(employee) {
+
+        var statsFrom = $("#StatsFrom").data("kendoDatePicker");
+        var statsTo = $("#StatsTo").data("kendoDatePicker");
+
+        var filter = {
             employeeId: employee.EmployeeId,
             salesPerson: employee.FullName,
             statsFrom: statsFrom.value(),
             statsTo: statsTo.value()
-        },
+        }
+        return filter;
+    }
+
+    function refreshGrid(filter) {
+        var employeeSales = $("#EmployeeSales").data("kendoGrid");
         employeeSales.dataSource.read(filter);
+    }
+
+    function onCriteriaChange() {
+        var employee = getSelectedEmployee();
+        var filter = createEmployeeFilter(employee);
+        refreshGrid(filter);
+        updateEmployeeAvatar(employee);
 
         //teamSales.dataSource.read(filter);
-
         //employeeQuarterSales.dataSource.read(filter);
         //employeeAverageSales.dataSource.read(filter);
     }
