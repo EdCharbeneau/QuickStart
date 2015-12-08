@@ -1,0 +1,28 @@
+﻿@{ Layout = null;}
+@model QuickStart.Models.InvoiceParameters
+﻿﻿@(Html.Kendo().Grid<QuickStart.Models.Invoice>()
+      .Name("EmployeeSales")
+      .AutoBind(false)
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.CustomerName).MinScreenWidth(900);
+          columns.Bound(c => c.OrderDate).Format("{0:dd/MM/yyyy}");
+          columns.Bound(c => c.ProductName).MinScreenWidth(768);
+          columns.Bound(c => c.UnitPrice);
+          columns.Bound(c => c.Quantity);
+      })
+      .ToolBar(toolbar =>
+      {
+          toolbar.Excel();
+          toolbar.Pdf();
+      })
+      .Pageable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.MultipleColumn);
+      })
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Invoices_Read", "Invoice"))
+      )
+)

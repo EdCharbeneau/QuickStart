@@ -1,7 +1,9 @@
-﻿@{
+﻿@using QuickStart.Models
+@{
     ViewBag.Title = "Team Efficiency";
     var placeholder = QuickStart.Models.PlaceholderModel.GetPlaceholderData();
     var names = QuickStart.Models.Name.GetListView();
+    var salesPerson = new QuickStart.Models.InvoiceParameters { SalesPerson = "Steven Buchanan" };
 }
 
 <section id="app-title-bar" class="row">
@@ -22,27 +24,44 @@
 
     @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
     @<div>
-         <div class="text-right">
-             @(Html.Kendo().Button()
-                .Name("menuPanelClose")
-                .Content("Close")
-                .Icon("close")
-                .HtmlAttributes(new { @class = "k-rpanel-toggle" })
-             )
-         </div>
+        <div class="text-right">
+            @(Html.Kendo().Button()
+               .Name("menuPanelClose")
+               .Content("Close")
+               .Icon("close")
+               .HtmlAttributes(new { @class = "k-rpanel-toggle" })
+            )
+        </div>
         <h3>Report Range</h3>
         <p>@Html.Label("Stats from")</p>
-        <p>@Html.Kendo().DatePicker().Name("StatsFrom")</p>
+        <p>
+            @(Html.Kendo().DatePicker()
+                    .Name("StatsFrom")
+                    .Value(new DateTime(1996, 1, 1))
+                    .Events(e => e.Change("onCriteriaChange")))
+        </p>
         <p>@Html.Label("Stats to")</p>
-        <p>@Html.Kendo().DatePicker().Name("StatsTo")</p>
+        <p>
+            @(Html.Kendo().DatePicker()
+                .Name("StatsTo")
+                .Value(new DateTime(1998, 8, 1))
+                .Events(e => e.Change("onCriteriaChange")))
+        </p>
         <nav id="employee-list">
             <h3>Team members</h3>
-            @(Html.Kendo().ListView(names)
-            .Name("listview")
-            .ClientTemplateId("template")
-            .TagName("ul")
+            @(Html.Kendo().ListView<Employee>()
+                .Name("EmployeesList")
+                .ClientTemplateId("EmployeeItemTemplate")
+                .TagName("ul")
+                .DataSource(dataSource =>
+                {
+                    dataSource.Read(read => read.Action("EmployeesList_Read", "Invoice"));
+                    dataSource.PageSize(9);
+                })
+                .Selectable(s => s.Mode(ListViewSelectionMode.Single))
+                .Events(e => e.DataBound("onListDataBound").Change("onCriteriaChange"))
             )
-            
+
         </nav>
     </div>
 ))
@@ -71,18 +90,46 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h3>Representative orders</h3>
-                    @(Html.Kendo().Grid(placeholder).Name("myTable"))
+                    @Html.Action("Index", "Invoice")
                 </div>
             </div>
         </article>
     </section>
 </div>
 
-<script type="text/x-kendo-tmpl" id="template">
-    <li>
-        <a href="##">
-            <img src="/Content/Employees/1-t.png" />
+<script type="text/x-kendo-tmpl" id="EmployeeItemTemplate">
+    <li class="employee">
+        <div>
+            <img src="@(Url.Content("~/content/employees/"))#:EmployeeId#-t.png" />
             <span> #= FullName #</span>
-        </a>
+        </div>
     </li>
+</script>
+
+<script>
+    function onListDataBound(e) {
+        this.select($(".employee:first"));
+    }
+    function onCriteriaChange(e) {
+        var employeeList = $("#EmployeesList").data("kendoListView"),
+        employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid"));
+        //    employeeQuarterSales = $("#EmployeeQuarterSales").data("kendoChart"),
+        //    employeeAverageSales = $("#EmployeeAverageSales").data("kendoChart"),
+        //    teamSales = $("#TeamSales").data("kendoChart"),
+        employeeSales = $("#EmployeeSales").data("kendoGrid"),
+        statsFrom = $("#StatsFrom").data("kendoDatePicker"),
+        statsTo = $("#StatsTo").data("kendoDatePicker"),
+        filter = {
+            employeeId: employee.EmployeeId,
+            salesPerson: employee.FullName,
+            statsFrom: statsFrom.value(),
+            statsTo: statsTo.value()
+        },
+        employeeSales.dataSource.read(filter);
+
+        //teamSales.dataSource.read(filter);
+
+        //employeeQuarterSales.dataSource.read(filter);
+        //employeeAverageSales.dataSource.read(filter);
+    }
 </script>
