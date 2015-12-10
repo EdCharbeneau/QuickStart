@@ -1,11 +1,11 @@
 ﻿@{ Layout = null;}
-﻿﻿@(Html.Kendo().Grid<QuickStart.Models.Invoice>()
+﻿﻿@(Html.Kendo().Grid<Invoice>()
       .Name("EmployeeSales")
       .AutoBind(false)
       .Columns(columns =>
       {
           columns.Bound(c => c.CustomerName).MinScreenWidth(900);
-          columns.Bound(c => c.OrderDate).Format("{0:dd/MM/yyyy}");
+          columns.Bound(c => c.OrderDate).Format("{0:MM/dd/yyyy}");
           columns.Bound(c => c.ProductName).MinScreenWidth(768);
           columns.Bound(c => c.UnitPrice);
           columns.Bound(c => c.Quantity);

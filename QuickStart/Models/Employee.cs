@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace QuickStart.Models
 {
@@ -19,9 +16,8 @@ namespace QuickStart.Models
         {
             get
             {
-                return String.Format("{0} {1}", FirstName, LastName);
+                return string.Format("{0} {1}", FirstName, LastName);
             }
         }
-        //public virtual ICollection<Order> Orders { get; set; }
     }
 }

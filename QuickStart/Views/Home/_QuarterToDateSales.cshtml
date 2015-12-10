@@ -1,8 +1,4 @@
-﻿
-@{
-    Layout = null;
-}
-@(Html.Kendo().Chart<QuickStart.Models.QuarterToDateSalesViewModel>()
+﻿@(Html.Kendo().Chart<QuarterToDateSalesViewModel>()
                         .Name("EmployeeQuarterSales")
                         .HtmlAttributes(new { style = "height:30px;" })
                         .AutoBind(false)
@@ -10,7 +6,7 @@
                         .Tooltip(false)
                         .Events(e => e.DataBound("onQuarterSalesDataBound"))
                         .DataSource(ds => ds
-                            .Read(read => read.Action("EmployeeQuarterSales", "Invoice")
+                            .Read(read => read.Action("EmployeeQuarterSales", "Home")
                             .Data("getEmployeeFilter"))
                         )
                         .Series(series =>

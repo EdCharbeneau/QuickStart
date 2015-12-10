@@ -1,5 +1,4 @@
-﻿@using QuickStart.Models
-@{
+﻿@{
     ViewBag.Title = "Team Efficiency";
 }
 
@@ -52,7 +51,7 @@
                 .TagName("ul")
                 .DataSource(dataSource =>
                 {
-                    dataSource.Read(read => read.Action("EmployeesList_Read", "Invoice"));
+                    dataSource.Read(read => read.Action("EmployeesList_Read", "Home"));
                     dataSource.PageSize(9);
                 })
                 .Selectable(s => s.Mode(ListViewSelectionMode.Single))
@@ -70,15 +69,15 @@
                 <div class="col-xs-12 col-lg-4">
                     <div class="chart-wrap">
                         <h3 class="chart-title">Quarter to date sales</h3>
-                        <p class="sales-report-value" id="EmployeeQuarterSalesLabel">$6,517.47</p>
-                        @Html.Action("QuarterToDateSales")
+                        <p class="sales-report-value" id="EmployeeQuarterSalesLabel">$0</p>
+                        @Html.Partial("_QuarterToDateSales")
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-4">
                     <div class="chart-wrap">
                         <h3 class="chart-title">Monthly Average Sales</h3>
-                        <p class="sales-report-value" id="EmployeeAverageSalesLabel">$8,788.86</p>
-                        @Html.Action("MontlySalesByEmployee")
+                        <p class="sales-report-value" id="EmployeeAverageSalesLabel">$0</p>
+                        @Html.Partial("_MontlySalesByEmployee")
                     </div>
                 </div>
             </div>
@@ -112,23 +111,23 @@
     }
 
     function getSelectedEmployee() {
-        var employeeList = $("#EmployeesList").data("kendoListView");
-        var employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid"));
+        var employeeList = $("#EmployeesList").data("kendoListView"),
+            employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid"));
         return employee;
     }
 
     function updateEmployeeAvatar() {
-        var employee = getSelectedEmployee();
-        var template = kendo.template($("#employeeAvatarTemplate").html());
+        var employee = getSelectedEmployee(),
+            template = kendo.template($("#employeeAvatarTemplate").html());
 
         //apply template
         $("#employee-about").html(template(employee));
     }
 
     function getEmployeeFilter() {
-        var employee = getSelectedEmployee();
-        var statsFrom = $("#StatsFrom").data("kendoDatePicker");
-        var statsTo = $("#StatsTo").data("kendoDatePicker");
+        var employee = getSelectedEmployee(),
+            statsFrom = $("#StatsFrom").data("kendoDatePicker"),
+            statsTo = $("#StatsTo").data("kendoDatePicker");
 
         var filter = {
             employeeId: employee.EmployeeId,
@@ -162,8 +161,8 @@
     }
 
     function onAverageSalesDataBound(e) {
-        var label = $("#EmployeeAverageSalesLabel");
-        var data = this.dataSource.aggregates()
+        var label = $("#EmployeeAverageSalesLabel"),
+            data = this.dataSource.aggregates()
 
         if (data.EmployeeSales) {
             label.text(kendo.toString(data.EmployeeSales.average, "c2"));

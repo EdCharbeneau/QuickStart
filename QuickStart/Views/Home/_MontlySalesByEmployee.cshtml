@@ -1,6 +1,4 @@
-﻿@{ Layout = null;}
-@using QuickStart.Models
-@(Html.Kendo().Chart<MonthlySalesByEmployeeResult>()
+﻿@(Html.Kendo().Chart<MonthlySalesByEmployeeViewModel>()
                         .Name("EmployeeAverageSales")
                         .HtmlAttributes(new { style = "height:30px;" })
                         .AutoBind(false)
@@ -8,7 +6,7 @@
                         .Events(e => e.DataBound("onAverageSalesDataBound"))
                         .DataSource(ds => ds
                             .Aggregates(a => a.Add(s => s.EmployeeSales).Average())
-                            .Read(read => read.Action("EmployeeAverageSales", "Invoice")
+                            .Read(read => read.Action("EmployeeAverageSales", "Home")
                             .Data("getEmployeeFilter"))
                         )
                         .Series(series =>

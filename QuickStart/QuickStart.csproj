@@ -163,11 +163,12 @@
     </Compile>
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Invoice.cs" />
-    <Compile Include="Models\InvoiceParameters.cs" />
+    <Compile Include="Models\MonthlySalesByEmployeeViewModel.cs" />
     <Compile Include="Models\NorthwindDBContext.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Order_Detail.cs" />
     <Compile Include="Models\PlaceholderModel.cs" />
+    <Compile Include="Models\QuarterToDateSalesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -210,8 +211,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Compile Include="Models\MonthlySalesByEmployeeResult.cs" />
-    <Compile Include="Models\QuarterToDateSalesViewModel.cs" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Ipsum_examples.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -257,8 +256,8 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
-    <Content Include="Views\Home\MontlySalesByEmployee.cshtml" />
-    <Content Include="Views\Home\QuarterToDateSales.cshtml" />
+    <Content Include="Views\Home\_MontlySalesByEmployee.cshtml" />
+    <Content Include="Views\Home\_QuarterToDateSales.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
