@@ -13,18 +13,15 @@ namespace QuickStart.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult MontlySalesByEmployee()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult QuarterToDateSales()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+
     }
 }

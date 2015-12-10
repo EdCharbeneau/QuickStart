@@ -1,0 +1,25 @@
+﻿@{ Layout = null;}
+@using QuickStart.Models
+@(Html.Kendo().Chart<MonthlySalesByEmployeeResult>()
+                        .Name("EmployeeAverageSales")
+                        .HtmlAttributes(new { style = "height:30px;" })
+                        .AutoBind(false)
+                        .Theme("nova")
+                        .Events(e => e.DataBound("onAverageSalesDataBound"))
+                        .DataSource(ds => ds
+                            .Aggregates(a => a.Add(s => s.EmployeeSales).Average())
+                            .Read(read => read.Action("EmployeeAverageSales", "Invoice")
+                            .Data("getEmployeeFilter"))
+                        )
+                        .Series(series =>
+                        {
+                            series.Line(model => model.EmployeeSales).Width(1.5).Markers(m => m.Visible(false)).Tooltip(t => t.Template("#=kendo.toString(value, 'c2')#"));
+                        })
+                        .CategoryAxis(c => c
+                            .Date()
+                            .Categories(x => x.Date)
+                            .Visible(false).MajorGridLines(m => m.Visible(false)).MajorTicks(mT => mT.Visible(false))
+                        )
+                        .Legend(leg => leg.Visible(false))
+                        .ValueAxis(val => val.Numeric().Visible(false).Labels(lab => lab.Visible(false)).MajorGridLines(m => m.Visible(false)).MajorTicks(mT => mT.Visible(false)))
+)

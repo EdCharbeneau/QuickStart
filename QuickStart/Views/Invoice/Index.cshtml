@@ -1,5 +1,4 @@
 ﻿@{ Layout = null;}
-@model QuickStart.Models.InvoiceParameters
 ﻿﻿@(Html.Kendo().Grid<QuickStart.Models.Invoice>()
       .Name("EmployeeSales")
       .AutoBind(false)
@@ -23,6 +22,7 @@
       })
       .DataSource(dataSource => dataSource
           .Ajax()
-          .Read(read => read.Action("Invoices_Read", "Invoice"))
+          .Read(read => read.Action("Invoices_Read", "Invoice")
+          .Data("getEmployeeFilter"))
       )
 )

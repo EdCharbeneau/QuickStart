@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+@(Html.Kendo().Chart<QuickStart.Models.QuarterToDateSalesViewModel>()
+                        .Name("EmployeeQuarterSales")
+                        .HtmlAttributes(new { style = "height:30px;" })
+                        .AutoBind(false)
+                        .Theme("nova")
+                        .Tooltip(false)
+                        .Events(e => e.DataBound("onQuarterSalesDataBound"))
+                        .DataSource(ds => ds
+                            .Read(read => read.Action("EmployeeQuarterSales", "Invoice")
+                            .Data("getEmployeeFilter"))
+                        )
+                        .Series(series =>
+                        {
+                            series.Bullet(m => m.Current, m => m.Target);
+                        })
+                        .Legend(leg => leg.Visible(false))
+                        .CategoryAxis(cat => cat.Labels(lab => lab.Visible(false)).MajorGridLines(m => m.Visible(false)).Visible(false))
+                        .ValueAxis(val => val.Numeric().Labels(lab => lab.Visible(false)).MajorGridLines(m => m.Visible(false)).MajorTicks(mT => mT.Visible(false)))
+)

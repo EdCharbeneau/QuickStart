@@ -1,9 +1,6 @@
 ﻿@using QuickStart.Models
 @{
     ViewBag.Title = "Team Efficiency";
-    var placeholder = QuickStart.Models.PlaceholderModel.GetPlaceholderData();
-    var names = QuickStart.Models.Name.GetListView();
-    var salesPerson = new QuickStart.Models.InvoiceParameters { SalesPerson = "Steven Buchanan" };
 }
 
 <section id="app-title-bar" class="row">
@@ -74,14 +71,14 @@
                     <div class="chart-wrap">
                         <h3 class="chart-title">Quarter to date sales</h3>
                         <p class="sales-report-value" id="EmployeeQuarterSalesLabel">$6,517.47</p>
-                        <img src="/Content/Temp/chart1.png" />
+                        @Html.Action("QuarterToDateSales")
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-4">
                     <div class="chart-wrap">
                         <h3 class="chart-title">Monthly Average Sales</h3>
                         <p class="sales-report-value" id="EmployeeAverageSalesLabel">$8,788.86</p>
-                        <img src="/Content/Temp/chart2.png" />
+                        @Html.Action("MontlySalesByEmployee")
                     </div>
                 </div>
             </div>
@@ -120,14 +117,16 @@
         return employee;
     }
 
-    function updateEmployeeAvatar(employee) {
+    function updateEmployeeAvatar() {
+        var employee = getSelectedEmployee();
         var template = kendo.template($("#employeeAvatarTemplate").html());
+
         //apply template
         $("#employee-about").html(template(employee));
     }
 
-    function createEmployeeFilter(employee) {
-
+    function getEmployeeFilter() {
+        var employee = getSelectedEmployee();
         var statsFrom = $("#StatsFrom").data("kendoDatePicker");
         var statsTo = $("#StatsTo").data("kendoDatePicker");
 
@@ -140,19 +139,42 @@
         return filter;
     }
 
-    function refreshGrid(filter) {
+    function refreshGrid() {
         var employeeSales = $("#EmployeeSales").data("kendoGrid");
-        employeeSales.dataSource.read(filter);
+        employeeSales.dataSource.read();
+    }
+
+    function refreshEmployeeAverageSales() {
+        var employeeAverageSales = $("#EmployeeAverageSales").data("kendoChart");
+        employeeAverageSales.dataSource.read();
+    }
+
+    function refreshEmployeeQuarterSales() {
+        var employeeQuarterSales = $("#EmployeeQuarterSales").data("kendoChart");
+        employeeQuarterSales.dataSource.read();
     }
 
     function onCriteriaChange() {
-        var employee = getSelectedEmployee();
-        var filter = createEmployeeFilter(employee);
-        refreshGrid(filter);
-        updateEmployeeAvatar(employee);
-
-        //teamSales.dataSource.read(filter);
-        //employeeQuarterSales.dataSource.read(filter);
-        //employeeAverageSales.dataSource.read(filter);
+        updateEmployeeAvatar();
+        refreshGrid();
+        refreshEmployeeAverageSales();
+        refreshEmployeeQuarterSales();
     }
+
+    function onAverageSalesDataBound(e) {
+        var label = $("#EmployeeAverageSalesLabel");
+        var data = this.dataSource.aggregates()
+
+        if (data.EmployeeSales) {
+            label.text(kendo.toString(data.EmployeeSales.average, "c2"));
+        } else {
+            label.text(kendo.toString(0, "c2"));
+        }
+    }
+
+    function onQuarterSalesDataBound(e) {
+        var data = this.dataSource.at(0);
+        $("#EmployeeQuarterSalesLabel").text(kendo.toString(data.Current, "c2"));
+    }
+
 </script>
